@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
+import de.hspf.schuster.rs.jax.example.Citation;
 import de.hspf.schuster.rs.jax.example.QuotesLoaderBean;
+import static junit.framework.Assert.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,8 @@ public class QuotesLoaderBeanTests {
 
     @Test
     public void whenCreateCitation_thenCitationShouldNotBeNull() {
-       // todo
+       Citation citationLoaded = quotesLoaderBean.createCitation("");
+
+       assertNotNull("Citation should not be null", citationLoaded);
     }
 }
