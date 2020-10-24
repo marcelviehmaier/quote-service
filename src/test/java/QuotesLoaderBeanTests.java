@@ -7,20 +7,23 @@
 import de.hspf.schuster.rs.jax.example.Citation;
 import de.hspf.schuster.rs.jax.example.QuotesLoaderBean;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  *
  * @author Marcel
  */
 public class QuotesLoaderBeanTests {
+
     private QuotesLoaderBean quotesLoaderBean;
-    
+
     public QuotesLoaderBeanTests() {
     }
-    
+
     @BeforeEach
     public void setUp() {
         quotesLoaderBean = new QuotesLoaderBean();
@@ -29,8 +32,16 @@ public class QuotesLoaderBeanTests {
 
     @Test
     public void whenCreateCitation_thenCitationShouldNotBeNull() {
-       Citation citationLoaded = quotesLoaderBean.createCitation("");
+        Citation citationLoaded = quotesLoaderBean.createCitation("");
 
-       assertNotNull("Citation should not be null", citationLoaded);
+        assertNotNull("Citation should not be null", citationLoaded);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"c", "citation", "this is a citation"})
+    void whenCreateCitation_thenCitationShouldNotBeEmpty(String text) {
+        Citation citationLoaded = quotesLoaderBean.createCitation(text);
+        
+        assertTrue(!citationLoaded.getQuote().isEmpty());
     }
 }
