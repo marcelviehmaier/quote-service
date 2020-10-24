@@ -88,4 +88,13 @@ public class QuotesLoaderBeanTests {
         assertTrue(String.class.isInstance(name));
     }
 
+    @Test
+    public void whenGetName_thenNameShouldNotBeEmpty() {
+        String name = quotesLoaderBean.getName();
+        Properties names = createNiceMock(Properties.class);
+        expect(names.getProperty(anyString())).andReturn(name);
+
+        assertTrue(name.length() > 0);
+        assertNotNull(name);
+    }
 }
