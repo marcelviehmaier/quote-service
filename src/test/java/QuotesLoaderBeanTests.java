@@ -11,6 +11,7 @@ import static junit.framework.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
@@ -40,6 +41,14 @@ public class QuotesLoaderBeanTests {
     @ParameterizedTest
     @ValueSource(strings = {"c", "citation", "this is a citation"})
     void whenCreateCitation_thenCitationShouldNotBeEmpty(String text) {
+        Citation citationLoaded = quotesLoaderBean.createCitation(text);
+        
+        assertTrue(!citationLoaded.getQuote().isEmpty());
+    }
+    
+    @ParameterizedTest
+    @CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
+    void whenCreateCitationWithInput_thenCitationShouldNotBeEmpty(String text) {
         Citation citationLoaded = quotesLoaderBean.createCitation(text);
         
         assertTrue(!citationLoaded.getQuote().isEmpty());
