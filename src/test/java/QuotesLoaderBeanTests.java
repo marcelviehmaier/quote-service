@@ -6,6 +6,8 @@
 
 import de.hspf.schuster.rs.jax.example.Citation;
 import de.hspf.schuster.rs.jax.example.QuotesLoaderBean;
+import java.util.Properties;
+import java.util.Set;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
@@ -18,6 +20,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.easymock.EasyMock.*;
 
 /**
  *
@@ -74,6 +77,15 @@ public class QuotesLoaderBeanTests {
         Citation citationLoaded = quotesLoaderBean.createCitation("This is just a test quote");
 
         assertTrue(Citation.class.isInstance(citationLoaded));
+    }
+
+    @Test
+    public void whenGetName_thenStringShouldBeReturned() {
+        String name = quotesLoaderBean.getName();
+        Properties names = createNiceMock(Properties.class);
+        expect(names.getProperty(anyString())).andReturn(name);
+
+        assertTrue(String.class.isInstance(name));
     }
 
 }
